@@ -11,4 +11,5 @@
 - **View Tasks:** Check an organized data display sorted chronologically by due dates.
 - **Edit Task:** Update data details or descriptions dynamically.
 - **Delete Task:** Safely drop task entities directly from storage.
-- **Update Status:** Quick one-click toggle layout button between "Pending" and "Completed".
+- **Update Status:** Quick on
+e-click toggle layout button between "Pending" and "Completed".

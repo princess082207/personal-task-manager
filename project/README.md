@@ -3,7 +3,7 @@
 ### Project Details
 * **Project Code:** WST21-PM-2026-SF
 * **Student Name:** Dapiton, Princess G.
-* **Course & Year:** BSIT-2 
+* **Course & Year:** BSIT-2
 * **Database Used:** SQLite (Laravel Native)
 
 ### System Features

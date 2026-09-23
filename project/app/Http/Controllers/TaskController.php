@@ -7,67 +7,67 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    // View Tasks Dashboard
+    // 1. View Tasks (Display all saved tasks)
     public function index()
     {
         $tasks = Task::orderBy('due_date', 'asc')->get();
         return view('tasks.index', compact('tasks'));
     }
 
-    // Show Add Task Form
+    // 2. Show the "Create" form screen
     public function create()
     {
         return view('tasks.create');
     }
 
-    // Add Task to Database
+    // 3. Add Task (Save new task to the database)
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'task_name' => 'required|max:255',
-            'description' => 'nullable',
+        $request->validate([
+            'task_name' => 'required|string|max:255',
+            'description' => 'nullable|string',
             'due_date' => 'required|date',
         ]);
 
-        Task::create($validated);
+        Task::create($request->all());
 
-        return redirect()->route('tasks.index')->with('success', 'Task created successfully!');
+        return redirect()->route('tasks.index')->with('success', 'Task added successfully!');
     }
 
-    // Show Edit Task Form
+    // 4. Show the "Edit" form screen
     public function edit(Task $task)
     {
         return view('tasks.edit', compact('task'));
     }
 
-    // Update Task Details
+    // 5. Edit Task (Update information in the database)
     public function update(Request $request, Task $task)
     {
-        $validated = $request->validate([
-            'task_name' => 'required|max:255',
-            'description' => 'nullable',
+        $request->validate([
+            'task_name' => 'required|string|max:255',
+            'description' => 'nullable|string',
             'due_date' => 'required|date',
-            'status' => 'required|in:Pending,Completed'
         ]);
 
-        $task->update($validated);
+        $task->update($request->all());
 
         return redirect()->route('tasks.index')->with('success', 'Task updated successfully!');
     }
 
-    // Quick Update Status Toggle (Pending/Completed)
-    public function updateStatus(Task $task)
+    // 6. Delete Task (Remove from database)
+    public function destroy(Task $task)
+    {
+        $task->delete();
+        return redirect()->route('tasks.index')->with('success', 'Task deleted safely!');
+    }
+
+    // 7. Update Status (Custom toggle between Pending and Completed)
+    public function toggleStatus(Task $task)
     {
         $task->status = $task->status === 'Pending' ? 'Completed' : 'Pending';
         $task->save();
 
-        return redirect()->back()->with('success', 'Task status updated!');
-    }
-
-    // Delete Task
-    public function destroy(Task $task)
-    {
-        $task->delete();
-        return redirect()->route('tasks.index')->with('success', 'Task removed successfully!');
+        return redirect()->route('tasks.index')->with('success', 'Task status switched!');
     }
 }
+

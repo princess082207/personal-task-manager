@@ -31,7 +31,8 @@ class TaskController extends Controller
 
         Task::create($request->all());
 
-        return redirect()->route('tasks.index')->with('success', 'Task added successfully!');
+        // Uses a relative path to force the browser to stay on your cloud URL
+        return redirect()->to('/tasks')->with('success', 'Task added successfully!');
     }
 
     // 4. Show the "Edit" form screen
@@ -51,14 +52,14 @@ class TaskController extends Controller
 
         $task->update($request->all());
 
-        return redirect()->route('tasks.index')->with('success', 'Task updated successfully!');
+        return redirect()->to('/tasks')->with('success', 'Task updated successfully!');
     }
 
     // 6. Delete Task (Remove from database)
     public function destroy(Task $task)
     {
         $task->delete();
-        return redirect()->route('tasks.index')->with('success', 'Task deleted safely!');
+        return redirect()->to('/tasks')->with('success', 'Task deleted safely!');
     }
 
     // 7. Update Status (Custom toggle between Pending and Completed)
@@ -67,7 +68,6 @@ class TaskController extends Controller
         $task->status = $task->status === 'Pending' ? 'Completed' : 'Pending';
         $task->save();
 
-        return redirect()->route('tasks.index')->with('success', 'Task status switched!');
+        return redirect()->to('/tasks')->with('success', 'Task status switched!');
     }
 }
-

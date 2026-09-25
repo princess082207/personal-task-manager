@@ -23,6 +23,6 @@
 #### ➕ 2. Create New Task Form Interface
 ![Create Task Form Layout](<public/Screenshot 2026-09-25 225518.png>)
 
-#### 📦 3. Populated Dashboard with Success Messages
+#### 📦 3. Main Dashboard (After Task Is Added Successfully)
 ![Populated Dashboard Layout](<public/Screenshot 2026-09-25 225530.png>)
 

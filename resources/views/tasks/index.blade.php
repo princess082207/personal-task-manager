@@ -17,12 +17,13 @@
     .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 9999px; margin-left: 8px; }
     .badge-pending { background-color: #fef3c7; color: #92400e; }
     .badge-completed { background-color: #d1fae5; color: #065f46; }
-    .actions-group { display: flex; items-items: center; gap: 8px; }
+    .actions-group { display: flex; align-items: center; gap: 8px; }
     .btn-action { font-size: 12px; font-weight: 600; padding: 8px 14px; border-radius: 8px; border: 1px solid #e2e8f0; background-color: #f8fafc; color: #475569; cursor: pointer; text-decoration: none; }
     .btn-toggle { background-color: #eef2ff; color: #4f46e5; border-color: #e0e7ff; }
     .btn-delete { background-color: #fff1f2; color: #e11d48; border-color: #ffe4e6; }
     .empty-state { padding: 48px; text-align: center; color: #64748b; }
     .empty-icon { font-size: 40px; margin-bottom: 12px; }
+    .alert-success { background-color: #d1fae5; color: #065f46; padding: 16px; border-radius: 12px; margin-bottom: 20px; font-weight: 500; font-size: 14px; border: 1px solid #a7f3d0; }
 </style>
 
 <div class="gradient-header">
@@ -30,9 +31,14 @@
     <p>Manage and organize your tasks fluidly</p>
 </div>
 
+@if(session('success'))
+    <div class="alert-success">
+        ✨ {{ session('success') }}
+    </div>
+@endif
+
 <div style="margin-bottom: 24px;">
    <a href="/tasks/create" class="add-btn">+ Add Task</a>
-
 </div>
 
 <div class="section-title">My Tasks</div>
@@ -52,13 +58,18 @@
             </div>
             
             <div class="actions-group">
-                <form action="{{ route('tasks.updateStatus', $task) }}" method="POST" style="margin:0;">
+                <!-- 1. Toggle Status Form -->
+                <form action="/tasks/{{ $task->id }}/toggle" method="POST" style="margin:0;">
                     @csrf
                     @method('PATCH')
                     <button type="submit" class="btn-action btn-toggle">Toggle</button>
                 </form>
-                <a href="{{ route('tasks.edit', $task) }}" class="btn-action">Edit</a>
-                <form action="{{ route('tasks.destroy', $task) }}" method="POST" style="margin:0;" onsubmit="return confirm('Remove task permanently?')">
+
+                <!-- 2. Edit Link -->
+                <a href="/tasks/{{ $task->id }}/edit" class="btn-action">Edit</a>
+
+                <!-- 3. Delete Form -->
+                <form action="/tasks/{{ $task->id }}" method="POST" style="margin:0;" onsubmit="return confirm('Remove task permanently?')">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn-action btn-delete">Delete</button>

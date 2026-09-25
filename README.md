@@ -14,5 +14,15 @@
 - **Update Status:** Quick on e-click toggle layout button between "Pending" and "Completed".
 
 
+
 ### System Screenshots
-![Project Dashboard](<public/Screenshot 2026-09-25 223043.png>)
+
+#### 📋 1. Main Dashboard (Empty State)
+![Empty Dashboard Layout](<public/Screenshot 2026-09-25 225448.png>)
+
+#### ➕ 2. Create New Task Form Interface
+![Create Task Form Layout](<public/Screenshot 2026-09-25 225518.png>)
+
+#### 📦 3. Populated Dashboard with Success Messages
+![Populated Dashboard Layout](<public/Screenshot 2026-09-25 225530.png>)
+
